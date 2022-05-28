@@ -14,27 +14,29 @@ const refs= {
     loadMoreBtn: document.querySelector('.load-more'),
 }
 
-refs.loadMoreBtn.disabled = true;
-console.dir(refs.loadMoreBtn)
+// refs.loadMoreBtn.disabled = true;
+// console.dir(refs.loadMoreBtn)
 
 const newsApiService = new NewsApiService();
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
-function onSearch(e){
-    e.preventDefault();
-   
-    if (newsApiService.query === '') {
-        return
-    }
+function onSearch(e) {
+  
+  e.preventDefault();
+  
+  
+    // if (newsApiService.query === '') {
+    //     return
+    // }
     refs.loadMoreBtn.disabled = false;
     newsApiService.query = e.currentTarget.elements.searchQuery.value;
     newsApiService.resetPage();
     newsApiService.fetchImages().then(hits => {
-        clearImgCardContainer();
         appendImgMarkup(hits);
     });
+  clearImgCardContainer();
 };
 
 function onLoadMore() {
@@ -49,17 +51,18 @@ function renderImgMarkup(hits) {
         `<div class="photo-card">
   <a href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}" loading="lazy" /></a>
   <div class="info">
+
     <p class="info-item">
-      <b>Likes:${likes}</b>
+      <b>Likes ${likes}</b>
     </p>
     <p class="info-item">
-      <b>Views:${views}</b>
+      <b>Views ${views}</b>
     </p>
     <p class="info-item">
-      <b>Comments:${comments}</b>
+      <b>Comments ${comments}</b>
     </p>
     <p class="info-item">
-      <b>Downloads:${downloads}</b>
+      <b>Downloads ${downloads}</b>
     </p>
   </div>
 </div>`
@@ -70,10 +73,10 @@ function renderImgMarkup(hits) {
 function appendImgMarkup(hits) {
     refs.imgCardContainer.insertAdjacentHTML('beforeend', renderImgMarkup(hits));
 var lightbox  = new SimpleLightbox('.photo-card a', {captionsData: 'alt',animationSpeed:250});
-photo-card.next();
+// photo-card.refresh();
 };
 
-function clearImgCardContainer(hits) {
+function clearImgCardContainer() {
     refs.imgCardContainer.innerHTML = '';
 }
 

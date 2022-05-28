@@ -9,11 +9,11 @@ export default class NewsApiService{
         // const authorizeKey = `27652237-fecfle648e251b2f1d2bb2568`;
        
         
-    return fetch(`https://pixabay.com/api/?key=27652237-fecf1e648e251b2f1d2bb2568&q=${this.searchQuery}&per_page=5&page=${this.page}&image_type=photo&orientation=horizontal&safesearch=true`)
+    return fetch(`https://pixabay.com/api/?key=27652237-fecf1e648e251b2f1d2bb2568&q=${this.searchQuery}&per_page=40&page=${this.page}&image_type=photo&orientation=horizontal&safesearch=true`)
         .then(res => res.json())
-        .then(data => {
+        .then(({hits}) => {
             this.incrementPage();
-            return data.hits;
+            return hits;
             });
     
     };
