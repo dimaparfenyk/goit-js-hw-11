@@ -1,3 +1,5 @@
+const { default: axios } = require('axios');
+
 export default class NewsApiService{
     constructor() {
         this.searchQuery = '';
@@ -5,17 +7,14 @@ export default class NewsApiService{
     };
 
     fetchImages() {
-        // const BASE_URL = `https://pixabay.com/api/`;
-        // const authorizeKey = `27652237-fecfle648e251b2f1d2bb2568`;
-       
-        
-    return fetch(`https://pixabay.com/api/?key=27652237-fecf1e648e251b2f1d2bb2568&q=${this.searchQuery}&per_page=40&page=${this.page}&image_type=photo&orientation=horizontal&safesearch=true`)
-        .then(res => res.json())
-        .then(({hits}) => {
-            this.incrementPage();
-            return hits;
-            });
     
+    return axios.get(`https://pixabay.com/api/?key=27652237-fecf1e648e251b2f1d2bb2568&q=${this.searchQuery}&per_page=40&page=${this.page}&image_type=photo&orientation=horizontal&safesearch=true`)
+        
+        .then(({ data }) => {
+            this.incrementPage();
+            return  data;
+        }).catch(error =>  console.log(error) );
+        
     };
 
     incrementPage() {
