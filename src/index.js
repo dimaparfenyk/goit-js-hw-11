@@ -44,7 +44,8 @@ async function onSearch(e) {
       Notify.success(`Hooray! We found ${res.totalHits} images.`);
       showLoadBtn(refs.loadMoreBtn);
       appendImgMarkup(res);
-      refs.loadMoreBtn.disabled = false;
+        refs.loadMoreBtn.disabled = false;
+        return res.totalHits;
       };
    
       if (res.totalHits < 40) {
@@ -53,6 +54,7 @@ async function onSearch(e) {
   });
   refs.searchForm.reset();
 };
+
 
 async function onLoadMore() {
    try {
