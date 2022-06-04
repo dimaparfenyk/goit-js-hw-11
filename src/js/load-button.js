@@ -3,6 +3,7 @@ function showLoadBtn(el) {
 };
 
 function hideLoadBtn(el) {
+    // el.classList.remove('is-hidden')
     el.classList.add('is-hidden');
 };
 
