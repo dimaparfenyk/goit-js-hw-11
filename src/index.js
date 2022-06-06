@@ -40,45 +40,33 @@ async function onSearch(e) {
        return;
      };
     clearImgCardContainer();
-    checkAmountOfResponseEl(res);
-      
-    // if (res.totalHits>40) {
-    //   console.log(res.hits)
-    //   Notify.success(`Hooray! We found ${res.totalHits} images.`);
-    //   showLoadBtn(refs.loadMoreBtn);
-    //   appendImgMarkup(res);
-    //     refs.loadMoreBtn.disabled = false;
-    //     return res.totalHits;
-    // }
-    //   if (res.totalHits < 40) {
-    //     hideLoadBtn(refs.loadMoreBtn);
-    //     Notify.success(`Hooray! We found ${res.totalHits} images.`);
-    //     appendImgMarkup(res);
-    //     return res.totalHits;
-    //   }
-  });
-  refs.searchForm.reset();
-};
 
-function checkAmountOfResponseEl(result) {
-  Notify.success(`Hooray! We found ${result.totalHits} images.`);
-  appendImgMarkup(result);
-  
-  if (result.totalHits>40){
+   
+    Notify.success(`Hooray! We found ${res.totalHits} images.`);
+    appendImgMarkup(res);
+    
+    if (res.totalHits>40) {
       showLoadBtn(refs.loadMoreBtn);
-      refs.loadMoreBtn.disabled = false; 
-  };
-      if (result.totalHits < 40) {
-        hideLoadBtn(refs.loadMoreBtn);   
-  };
-   return result.totalHits;
+      refs.loadMoreBtn.disabled = false;
+    };
+    
+    return res.totalHits;
+  });
+  refs.searchForm.reset(); 
 };
 
 async function onLoadMore() {
-   try {
-     const response = await newsApiService.fetchImages();
-     appendImgMarkup(response);
+  try {
+    const response = await
+      newsApiService.fetchImages();
+    console.log(response);
 
+     if (response.hits.length ===0){
+      hideLoadBtn(refs.loadMoreBtn);
+      Notify.info(`We're sorry, but you've reached the end of search results.`);
+    };
+     appendImgMarkup(response);
+    
    } catch (error) {
      hideLoadBtn(refs.loadMoreBtn);
      Notify.info(`We're sorry, but you've reached the end of search results.`);
